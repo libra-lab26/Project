@@ -60,17 +60,6 @@
       });
   }
 </script>
-<button onclick="ambilPassword()">Brute Force</button>
-<script>
-  function ambilPassword() {
-    fetch("http://localhost:5000/password")
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("guess").value = data.password;
-        document.getElementById("result").innerText = "Password ditemukan: " + data.password;
-      });
-  }
-</script>
 
   <script>
     const password = "258"; // Jawaban sebenarnya
