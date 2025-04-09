@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teka-Teki Password</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffdd00;
+      color: #111;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    .clue {
+      background: #fff;
+      padding: 10px;
+      margin: 10px auto;
+      width: 250px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    input[type="text"] {
+      font-size: 18px;
+      padding: 5px 10px;
+      width: 80px;
+      text-align: center;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tebak Password - Teka Teki Logika</h1>
+  <p>Password terdiri dari 3 angka yang berbeda.</p>
+
+  <div class="clue">1 2 3 → Benar 1, posisi salah</div>
+  <div class="clue">4 5 6 → Benar 1, posisi benar</div>
+  <div class="clue">9 6 0 → Tidak ada yang benar</div>
+  <div class="clue">7 4 2 → Benar 1, posisi salah</div>
+
+  <p>Masukkan tebakan kamu:</p>
+  <input type="text" id="guess" maxlength="3" />
+  <button onclick="checkPassword()">Cek Jawaban</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const password = "258"; // Jawaban sebenarnya
+
+    function checkPassword() {
+      const guess = document.getElementById("guess").value;
+      const result = document.getElementById("result");
+
+      if (guess.length !== 3 || new Set(guess).size !== 3) {
+        result.innerText = "Tebakan harus terdiri dari 3 angka berbeda!";
+        return;
+      }
+
+      if (guess === password) {
+        result.innerText = "Selamat! Jawaban kamu BENAR!";
+        result.style.color = "green";
+      } else {
+        let correct = 0, wrongPos = 0;
+        for (let i = 0; i < 3; i++) {
+          if (guess[i] === password[i]) {
+            correct++;
+          } else if (password.includes(guess[i])) {
+            wrongPos++;
+          }
+        }
+        result.innerText = `${correct} angka di posisi benar, ${wrongPos} angka benar di posisi salah.`;
+        result.style.color = "black";
+      }
+    }
+  </script>
+</body>
+</html>
